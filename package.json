@@ -2,7 +2,7 @@
   "name": "bluefox",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
     "dev": "npm run build && nodemon dist/server.js",
