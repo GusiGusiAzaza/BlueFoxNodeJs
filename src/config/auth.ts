@@ -10,7 +10,6 @@ export default {
     tokenName: 'jwt',
     jwtSecret: `${process.env.JWT_SECRET}`,
     jwtExpires: '7d',
-    secretSalt: `${process.env.SECRET_SALT}`,
     googleClientId: `${process.env.GOOGLE_CLIENT_ID}`,
     googleClientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
     FACEBOOK_APP_ID: `${process.env.FACEBOOK_APP_ID}`,

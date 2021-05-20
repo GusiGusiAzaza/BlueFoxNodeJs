@@ -102,9 +102,9 @@ class AuthService {
         { expiresIn: authConfig.jwtExpires }
     );
 
-    hashPassword = async (password: string, saltRounds = 10): Promise<string> => hash(await hash(password, authConfig.secretSalt), saltRounds);
+    hashPassword = async (password: string, saltRounds = 12): Promise<string> => hash(password, saltRounds);
 
-    comparePassword = async (password: string, passwordHash: string): Promise<boolean> => compare(await hash(password, authConfig.secretSalt), passwordHash);
+    comparePassword = async (password: string, passwordHash: string): Promise<boolean> => compare(password, passwordHash);
 }
 
 export default new AuthService();
