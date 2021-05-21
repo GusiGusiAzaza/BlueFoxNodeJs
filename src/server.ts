@@ -46,7 +46,7 @@ app.use((err: ApplicationException, req: Request, res: Response, next: NextFunct
 
 mongo()
     .then(() => {
-        app.listen(() => {
+        app.listen(port, () => {
             console.log(`Server started on ${port}`);
         });
     })
