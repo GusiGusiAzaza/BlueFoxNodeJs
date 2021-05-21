@@ -16,7 +16,7 @@
     ],
     "rules": {
         "indent": ["error", 4],
-        "linebreak-style": ["error", "windows"],
+        "linebreak-style": ["error", "unix"],
         "comma-dangle": ["error", "never"],
         "object-shorthand": ["error", "never"],
         "no-underscore-dangle": 0,
