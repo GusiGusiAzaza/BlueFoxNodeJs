@@ -20,6 +20,7 @@ import usersRoutes from './routes/users';
 const port = process.env.PORT || 4000;
 
 const app = express();
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -45,7 +46,7 @@ app.use((err: ApplicationException, req: Request, res: Response, next: NextFunct
 
 mongo()
     .then(() => {
-        app.listen(port, () => {
+        app.listen(() => {
             console.log(`Server started on ${port}`);
         });
     })

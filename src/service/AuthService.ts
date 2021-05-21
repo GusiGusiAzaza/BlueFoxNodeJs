@@ -92,7 +92,6 @@ class AuthService {
     loginCallback = async (user: Auth) => {
         if (!user.id) throw new ValidationError('undefined id');
         const body = { _id: user.id.toString() };
-        // @ts-ignore
         return this.generateToken(body).then((token) => new AuthLoginResponse('Login successful', user.id, token));
     };
 
