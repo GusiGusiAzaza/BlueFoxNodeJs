@@ -20,7 +20,7 @@ export const signupAuth = async (req: Request, res: Response, next: NextFunction
             if (err || !user) {
                 return next(err);
             }
-            return res.json(new AuthSignupResponse('Signup successful', user.id));
+            return res.json(new AuthSignupResponse('Signup successful', user.id, user.role));
         })(req, res, next);
 };
 
@@ -33,10 +33,10 @@ export const loginAuth = async (req: Request, res: Response, next: NextFunction)
             if (error) {
                 return next(error);
             }
-            const body = { _id: user.id.toString(), roles: user.roles };
+            const body = { _id: user.id.toString(), _role: user.role.toString() };
             // Creates token
             service.generateToken(body).then((token) => res.json(
-                new AuthLoginResponse('Login successful', user.id, token)
+                new AuthLoginResponse('Login successful', user.id, user.role, token)
             ));
         });
     })(req, res, next);

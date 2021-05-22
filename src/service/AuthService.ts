@@ -38,7 +38,7 @@ class AuthService {
 
     passportLogin = async (login: string, password: string, done: any) => {
         try {
-            console.log(`Logging in ${login} with ${password}`);
+            console.log(`Logging in ${login}`);
 
             // Simple validation
             if (!isValidSignup(login, password)) {
@@ -91,15 +91,15 @@ class AuthService {
 
     loginCallback = async (user: Auth) => {
         if (!user.id) throw new ValidationError('undefined id');
-        const body = { _id: user.id.toString() };
-        return this.generateToken(body).then((token) => new AuthLoginResponse('Login successful', user.id, token));
+        const body = { _id: user.id.toString(), _role: user.role };
+        return this.generateToken(body).then((token) => new AuthLoginResponse('Login successful', user.id, user.role, token));
     };
 
     generateToken = async (body: any) => jwt.sign(
         { user: body },
         authConfig.jwtSecret,
         { expiresIn: authConfig.jwtExpires }
-    );
+    )
 
     hashPassword = async (password: string, saltRounds = 12): Promise<string> => hash(password, saltRounds);
 
