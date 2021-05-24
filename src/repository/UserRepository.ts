@@ -8,10 +8,17 @@ class UserRepository {
     }
 
     async create(user: User): Promise<IUser['_id']> {
-        if (!await authRepository.findById(user.id)) throw new ValidationError('User id not found');
         const { id, ...userData } = user;
 
         return UserModel.create({ _id: user.id, ...userData });
+    }
+
+    async update(user: User): Promise<IUser['_id']> {
+        if (!await authRepository.findById(user.id)) throw new ValidationError('User not found');
+        console.log(user);
+        await UserModel.update({ _id: user.id }, user);
+
+        return this.findById(user.id);
     }
 }
 

@@ -4,14 +4,8 @@ import * as userController from '../controllers/users';
 
 const router = express.Router();
 
-router.get('/:userId', userController.getUser);
+router.get('/:userId', userController.findOne);
 
-router.post('/', userController.createUser);
-
-router.post('/:userId', userController.updateUser);
-
-// router.post('/!search', userController.search);
-//
-// router.post('/!getMany', userController.getUsersByIds);
+router.post('/', userController.updateUser);
 
 export default router;

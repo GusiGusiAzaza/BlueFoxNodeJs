@@ -1,9 +1,8 @@
 import { model, Schema, Document } from 'mongoose';
 
 const authSchema = new Schema({
-    role: {
-        type: Number,
-        enum: [0, 1],
+    isAdmin: {
+        type: Boolean,
         default: 0,
         required: true
     },
@@ -15,15 +14,10 @@ const authSchema = new Schema({
     password: String
 });
 
-export enum Role {
-    User = 0,
-    Admin
-}
-
 export interface IAuth extends Document {
     id: string;
     login: string;
-    role: Role;
+    isAdmin: boolean;
     password: string;
     nickname: string;
 }
@@ -31,20 +25,20 @@ export interface IAuth extends Document {
 export class Auth {
     id: string;
     login: string;
-    role: Role;
+    isAdmin: boolean;
     password?: string;
     nickname?: string;
 
     constructor(
         id: string,
         login: string,
-        role: Role,
+        isAdmin: boolean,
         password?: string,
         nickname?: string
     ) {
         this.id = id;
         this.login = login;
-        this.role = role;
+        this.isAdmin = isAdmin;
         this.password = password;
         this.nickname = nickname;
     }

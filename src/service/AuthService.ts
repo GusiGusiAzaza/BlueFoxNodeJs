@@ -8,7 +8,7 @@ import { AuthenticationError, ValidationError } from '../model/HttpError';
 import authRepository from '../repository/AuthRepository';
 import AuthLoginResponse from '../model/AuthLoginResponse';
 
-import { Auth, Role } from '../entity/Auth';
+import { Auth } from '../entity/Auth';
 import { isValidSignup } from '../utils/RequestUtils';
 import userRepository from '../repository/UserRepository';
 import { User } from '../entity/User';
@@ -25,11 +25,11 @@ class AuthService {
         }
 
         await authRepository.create(
-            new Auth('', login, Role.User, await this.hashPassword(password))
+            new Auth('', login, false, await this.hashPassword(password))
         )
             .then(async (result) => {
                 await userRepository.create(
-                    new User(result.id)
+                    new User(result.id, login)
                 );
                 return done(null, result);
             })
@@ -78,10 +78,10 @@ class AuthService {
 
     socialNetworkLogin = async (profile: any) => {
         await authRepository.create(
-            new Auth('', profile.emails[0].value, Role.User)
+            new Auth('', profile.emails[0].value, false)
         ).then(async (result) => {
             await userRepository.create(
-                new User(result.id)
+                new User(result.id, profile.emails[0].value)
             );
             return result;
         });
@@ -91,8 +91,8 @@ class AuthService {
 
     loginCallback = async (user: Auth) => {
         if (!user.id) throw new ValidationError('undefined id');
-        const body = { _id: user.id.toString(), _role: user.role };
-        return this.generateToken(body).then((token) => new AuthLoginResponse('Login successful', user.id, user.role, token));
+        const body = { _id: user.id.toString(), _isAdmin: user.isAdmin };
+        return this.generateToken(body).then((token) => new AuthLoginResponse('Login successful', user.id, user.isAdmin, token));
     };
 
     generateToken = async (body: any) => jwt.sign(
@@ -100,6 +100,12 @@ class AuthService {
         authConfig.jwtSecret,
         { expiresIn: authConfig.jwtExpires }
     )
+
+    isAdmin = async (userId: string): Promise<boolean> => authRepository.findById(userId)
+        .then((auth) => auth.isAdmin)
+        .catch((err) => {
+            console.log(err);
+        });
 
     hashPassword = async (password: string, saltRounds = 12): Promise<string> => hash(password, saltRounds);
 

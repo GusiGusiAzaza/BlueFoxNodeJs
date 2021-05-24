@@ -1,16 +1,17 @@
 import AuthSignupResponse from './AuthSignupResponse';
-import { Role } from '../entity/Auth';
 
 export default class AuthLoginResponse extends AuthSignupResponse {
     token: string;
+    isAdmin: boolean;
 
     constructor(
         message: string,
         id: string,
-        role: Role,
+        isAdmin: boolean,
         token: string
     ) {
-        super(message, id, role);
+        super(message, id);
         this.token = token;
+        this.isAdmin = isAdmin;
     }
 }

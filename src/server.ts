@@ -17,6 +17,12 @@ import ApplicationException from './model/ApplicationException';
 import publicRoutes from './routes/public';
 import authRoutes from './routes/auth';
 import usersRoutes from './routes/users';
+import themesRoutes from './routes/themes';
+import testsRoutes from './routes/tests';
+import questionsRoutes from './routes/questions';
+// import answersRoutes from './routes/answers';
+// import userAnswersRoutes from './routes/userAnswers';
+// import testResultsRoutes from './routes/userAnswers';
 
 const port = process.env.PORT || 8080;
 
@@ -43,6 +49,12 @@ app.use(responseTime((req: Request, res: Response, time: number) => console.log(
 app.use('', publicRoutes);
 app.use('/auth', authRoutes);
 app.use('/users', validateJwtMiddleware, usersRoutes);
+app.use('/themes', validateJwtMiddleware, themesRoutes);
+app.use('/tests', validateJwtMiddleware, testsRoutes);
+app.use('/questions', validateJwtMiddleware, questionsRoutes);
+// app.use('/answers', validateJwtMiddleware, answersRoutes);
+// app.use('/userAnswers', validateJwtMiddleware, userAnswersRoutes);
+// app.use('/testResults', validateJwtMiddleware, testResultsRoutes);
 
 // Handle errors.
 app.use((err: ApplicationException, req: Request, res: Response, next: NextFunction) => {
