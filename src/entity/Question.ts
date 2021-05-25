@@ -25,7 +25,7 @@ export interface IQuestion extends Document {
     testId: string;
     question: string;
     questionNumber: number;
-    answers: [Answer];
+    answers: Answer[];
 }
 
 export class Question {
@@ -33,14 +33,14 @@ export class Question {
     testId: string;
     question: string;
     questionNumber: number;
-    answers: [Answer];
+    answers: Answer[];
 
     constructor(
         id: string,
         testId: string,
         question: string,
         questionNumber: number,
-        answers: [Answer]
+        answers: Answer[]
     ) {
         this.id = id;
         this.testId = testId;

@@ -20,9 +20,7 @@ import usersRoutes from './routes/users';
 import themesRoutes from './routes/themes';
 import testsRoutes from './routes/tests';
 import questionsRoutes from './routes/questions';
-// import answersRoutes from './routes/answers';
-// import userAnswersRoutes from './routes/userAnswers';
-// import testResultsRoutes from './routes/userAnswers';
+import testResultsRoutes from './routes/testResults';
 
 const port = process.env.PORT || 8080;
 
@@ -52,9 +50,7 @@ app.use('/users', validateJwtMiddleware, usersRoutes);
 app.use('/themes', validateJwtMiddleware, themesRoutes);
 app.use('/tests', validateJwtMiddleware, testsRoutes);
 app.use('/questions', validateJwtMiddleware, questionsRoutes);
-// app.use('/answers', validateJwtMiddleware, answersRoutes);
-// app.use('/userAnswers', validateJwtMiddleware, userAnswersRoutes);
-// app.use('/testResults', validateJwtMiddleware, testResultsRoutes);
+app.use('/testResults', validateJwtMiddleware, testResultsRoutes);
 
 // Handle errors.
 app.use((err: ApplicationException, req: Request, res: Response, next: NextFunction) => {

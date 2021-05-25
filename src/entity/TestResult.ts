@@ -1,4 +1,5 @@
 import { Document, model, Schema } from 'mongoose';
+import { UserAnswer } from './UserAnswer';
 
 const testResultSchema = new Schema({
     userId: String,
@@ -7,6 +8,10 @@ const testResultSchema = new Schema({
     tryCount: Number,
     score: Number,
     rightAnswered: Number,
+    userAnswers: {
+        type: [{ questionId: String, answerId: Boolean }],
+        require: true
+    },
     startDate: Date,
     endDate: Date
 });
@@ -19,6 +24,7 @@ export interface ITestResult extends Document {
     tryCount: number;
     score: number;
     rightAnswered: number;
+    userAnswers: UserAnswer[];
     startDate: Date;
     endDate: Date;
 }
@@ -31,6 +37,7 @@ export class TestResult {
     tryCount: number;
     score: number;
     rightAnswered: number;
+    userAnswers: UserAnswer[];
     startDate: Date;
     endDate: Date;
 
@@ -38,6 +45,7 @@ export class TestResult {
         id: string,
         userId: string,
         testId: string,
+        userAnswers: UserAnswer[],
         questionsCount: number = 0,
         tryCount: number = 1,
         score: number = 0,
@@ -52,6 +60,7 @@ export class TestResult {
         this.tryCount = tryCount;
         this.score = score;
         this.rightAnswered = rightAnswered;
+        this.userAnswers = userAnswers;
         this.startDate = startDate;
         this.endDate = endDate;
     }
