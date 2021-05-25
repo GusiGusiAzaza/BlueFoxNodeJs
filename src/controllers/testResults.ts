@@ -9,6 +9,7 @@ import {
 } from '../model/HttpError';
 import { isEmptyBody, isValidId } from '../utils/RequestUtils';
 import { TestResult } from '../entity/TestResult';
+import IUserTokenPayload from '../model/UserTokenPayload';
 
 export const findOne = (req: Request, res: Response, next: NextFunction) => {
     if (!isValidId(req.params.testResultId)) throw new ValidationError('Invalid id');
@@ -37,11 +38,11 @@ export const create = (req: Request, res: Response, next: NextFunction) => {
     if (isEmptyBody(req.body)) {
         throw new BadRequestError('Empty body');
     }
-    if (!(req.body.testId && req.body.testResult && req.body.testResultNumber && req.body.answers)) {
-        throw new BadRequestError('Invalid body');
-    }
+    console.log(req.body.testResult.score);
+    const user = req.user as IUserTokenPayload;
 
-    testResultRepository.create(new TestResult('', req.body.testId, req.body.testResult, req.body.testResultNumber, req.body.answers))
+    testResultRepository.create(new TestResult('', user._id, req.body.testResult.testId, req.body.testResult.userAnswers, req.body.testResult.questionsCount,
+        1, req.body.testResult.score, req.body.testResult.rightAnswered, req.body.testResult.startDate, req.body.testResult.endDate))
         .then((testResult) => {
             res.json(testResult);
         })
