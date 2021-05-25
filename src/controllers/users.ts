@@ -32,8 +32,6 @@ export const updateUser = async (req: Request<Parameters>, res: Response, next: 
     delete req.body.finishedTestsCount;
     delete req.body.passedTestsCount;
 
-    console.log('UPDATE');
-
     const userToken = req.user as IUserTokenPayload;
 
     if (isEmptyBody(req.body)) {

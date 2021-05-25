@@ -19,8 +19,6 @@ export const create = (req: Request, res: Response, next: NextFunction) => {
     }
     if (!req.body.name) throw new BadRequestError('Missing theme name');
 
-    console.log(req.body.name);
-
     themeRepository.create(req.body.name.toString())
         .then((theme) => {
             res.json(theme);

@@ -12,7 +12,6 @@ import { isEmptyBody, isValidId } from '../utils/RequestUtils';
 import { Question } from '../entity/Question';
 
 export const findOne = (req: Request, res: Response, next: NextFunction) => {
-    console.log('HAHAHA');
     if (!isValidId(req.params.questionId)) throw new ValidationError('Invalid id');
     questionRepository.findById(req.params.questionId)
         .then((question) => {
@@ -24,7 +23,6 @@ export const findOne = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const findAllByTestId = (req: Request, res: Response, next: NextFunction) => {
-    console.log('HEHEHE');
     if (isEmptyBody(req.body)) {
         throw new BadRequestError('Empty body');
     }
@@ -37,8 +35,6 @@ export const findAllByTestId = (req: Request, res: Response, next: NextFunction)
 };
 
 export const create = (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
-
     if (isEmptyBody(req.body)) {
         throw new BadRequestError('Empty body');
     }
@@ -54,7 +50,6 @@ export const create = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const update = (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
     if (isEmptyBody(req.body)) {
         throw new BadRequestError('Empty body');
     }

@@ -35,8 +35,6 @@ export const findAllByThemeId = (req: Request, res: Response, next: NextFunction
 };
 
 export const create = (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
-
     if (isEmptyBody(req.body)) {
         throw new BadRequestError('Empty body');
     }
