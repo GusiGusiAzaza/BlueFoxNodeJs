@@ -10,7 +10,6 @@ const authSchema = new Schema({
         type: String,
         unique: true
     },
-    nickname: String,
     password: String
 });
 
@@ -19,7 +18,6 @@ export interface IAuth extends Document {
     login: string;
     isAdmin: boolean;
     password: string;
-    nickname: string;
 }
 
 export class Auth {
@@ -27,20 +25,17 @@ export class Auth {
     login: string;
     isAdmin: boolean;
     password?: string;
-    nickname?: string;
 
     constructor(
         id: string,
         login: string,
         isAdmin: boolean,
-        password?: string,
-        nickname?: string
+        password?: string
     ) {
         this.id = id;
         this.login = login;
         this.isAdmin = isAdmin;
         this.password = password;
-        this.nickname = nickname;
     }
 }
 

@@ -2,12 +2,30 @@ import { Document, model, Schema } from 'mongoose';
 import { UserAnswer } from './UserAnswer';
 
 const testResultSchema = new Schema({
-    userId: String,
-    testId: String,
-    questionsCount: Number,
-    tryCount: Number,
-    score: Number,
-    rightAnswered: Number,
+    userId: {
+        type: String,
+        require: true
+    },
+    testId: {
+        type: String,
+        require: true
+    },
+    questionsCount: {
+        type: Number,
+        require: true
+    },
+    tryCount: {
+        type: Number,
+        require: true
+    },
+    score: {
+        type: Number,
+        require: true
+    },
+    rightAnswered: {
+        type: Number,
+        require: true
+    },
     userAnswers: {
         type: [{ questionId: String, answerId: Boolean }],
         require: true
